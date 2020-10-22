@@ -7,7 +7,7 @@ import org.junit.Test;
 public class MatrixTest {
 
   @Test
-  public void shouldValidateTwoMatrixHavingSameElements() {
+  public void shouldEquateTwoMatricesHavingSameElements() {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -15,13 +15,13 @@ public class MatrixTest {
     Matrix matrix2 = Matrix.create(sample2);
 
     assertTrue(
-      "should validate for matrices having same element",
+      "Should equate two matrices having same elements",
       matrix1.equals(matrix2)
     );
   }
 
   @Test
-  public void shouldNotEquateTwoMatrixHavingDifferentElements() {
+  public void shouldNotEquateTwoMatricesHavingDifferentElements() {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -29,7 +29,7 @@ public class MatrixTest {
     Matrix matrix2 = Matrix.create(sample2);
 
     assertFalse(
-      "should not validate for matrices having different element",
+      "Should not equate two matrices having different elements",
       matrix1.equals(matrix2)
     );
   }
@@ -43,7 +43,7 @@ public class MatrixTest {
     Matrix matrix2 = Matrix.create(sample2);
 
     assertFalse(
-      "should not validate for matrices having different dimensions",
+      "Should not equate two matrices having different dimensions",
       matrix1.equals(matrix2)
     );
   }
@@ -56,7 +56,7 @@ public class MatrixTest {
     Object obj = new Object();
 
     assertFalse(
-      "should not equate matrix with other object",
+      "Should not equate matrix with other object",
       matrix1.equals(obj)
     );
   }
@@ -88,7 +88,7 @@ public class MatrixTest {
     int[][] expectedData = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
     Matrix expected = Matrix.create(expectedData);
 
-    assertEquals("should add two matrix of same dimension", sum, expected);
+    assertEquals("Should add two matrix of same dimension", sum, expected);
   }
 
   @Test
@@ -100,7 +100,7 @@ public class MatrixTest {
     Matrix matrix2 = Matrix.create(sample2);
 
     Matrix sum = matrix1.add(matrix2);
-    assertNull("should not add if two matrix have different dimension", sum);
+    assertNull("Should not add if two matrix have different dimension", sum);
   }
 
   @Test
@@ -117,7 +117,7 @@ public class MatrixTest {
     Matrix expected = Matrix.create(expectedData);
 
     assertEquals(
-      "should subtract second matrix from the first matrix if both have same dimension",
+      "Should subtract second matrix from the first matrix if both have same dimension",
       difference,
       expected
     );
@@ -133,7 +133,7 @@ public class MatrixTest {
 
     Matrix difference = matrix1.subtract(matrix2);
     assertNull(
-      "should not perform subtraction if two matrix have different dimension",
+      "Should not perform subtraction if two matrix have different dimension",
       difference
     );
   }
@@ -151,11 +151,11 @@ public class MatrixTest {
     int[][] expectedData = { { 9, 12 }, { 24, 33 } };
     Matrix expected = Matrix.create(expectedData);
 
-    assertEquals("should multiply two matrices", product, expected);
+    assertEquals("Should multiply two matrices", product, expected);
   }
 
   @Test
-  public void shouldNotMultiplyTwoMatrices() {
+  public void shouldNotMultiplyTwoMatricesWithWrongDimensions() {
     int[][] sample1 = { { 1, 2 }, { 4, 5 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -164,7 +164,7 @@ public class MatrixTest {
 
     Matrix product = matrix1.multiply(matrix2);
     assertNull(
-      "should not multiply if numbers of rows of first is not equal to the number of columns of the second matrix",
+      "Should not multiply, if numbers of columns of first is not equal to the number of rows of the second matrix",
       product
     );
   }
@@ -174,7 +174,7 @@ public class MatrixTest {
     int[][] sample = { { 1, 2 }, { 4, 5 } };
     Matrix matrix = Matrix.create(sample);
     assertEquals(
-      "should give the determinant of given 2X2  matrix",
+      "Should give the determinant of given 2X2  matrix",
       -3,
       matrix.determinant()
     );
@@ -190,7 +190,7 @@ public class MatrixTest {
     };
     Matrix matrix = Matrix.create(sample);
     assertEquals(
-      "should give the determinant of given nXn matrix",
+      "Should give the determinant of given nXn matrix",
       -240,
       matrix.determinant()
     );
