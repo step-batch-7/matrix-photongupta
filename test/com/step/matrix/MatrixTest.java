@@ -21,7 +21,7 @@ public class MatrixTest {
   }
 
   @Test
-  public void shouldNotValidateTwoMatrixHavingDifferentElements() {
+  public void shouldNotEquateTwoMatrixHavingDifferentElements() {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -31,6 +31,33 @@ public class MatrixTest {
     assertFalse(
       "should not validate for matrices having different element",
       matrix1.equals(matrix2)
+    );
+  }
+
+  @Test
+  public void shouldNotEquateTwoMatricesWithDifferentDimensions() {
+    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    int[][] sample2 = { { 4 }, { 9 } };
+    Matrix matrix2 = Matrix.create(sample2);
+
+    assertFalse(
+      "should not validate for matrices having different dimensions",
+      matrix1.equals(matrix2)
+    );
+  }
+
+  @Test
+  public void shouldNotEquateMatrixWithOtherObject() {
+    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    Object obj = new Object();
+
+    assertFalse(
+      "should not equate matrix with other object",
+      matrix1.equals(obj)
     );
   }
 
