@@ -75,4 +75,39 @@ public class MatrixTest {
     Matrix sum = matrix1.add(matrix2);
     assertNull("should not add if two matrix have different dimension", sum);
   }
+
+  @Test
+  public void shouldSubtractTwoMatrixOfSameDimensions() {
+    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    int[][] sample2 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    Matrix matrix2 = Matrix.create(sample2);
+
+    Matrix difference = matrix1.subtract(matrix2);
+
+    int[][] expectedData = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+    Matrix expected = Matrix.create(expectedData);
+
+    assertEquals(
+      "should subtract second matrix from the first matrix if both have same dimension",
+      difference,
+      expected
+    );
+  }
+
+  @Test
+  public void shouldNotSubtractTwoMatrixOfDifferentDimensions() {
+    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    int[][] sample2 = { { 1, 2 }, { 4, 5 } };
+    Matrix matrix3 = Matrix.create(sample2);
+
+    Matrix difference = matrix1.subtract(matrix3);
+    assertNull(
+      "should not perform subtraction if two matrix have different dimension",
+      difference
+    );
+  }
 }
