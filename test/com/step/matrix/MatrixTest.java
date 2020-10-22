@@ -141,4 +141,31 @@ public class MatrixTest {
       product
     );
   }
+
+  @Test
+  public void shouldCalculateDeterminantOf2x2Matrix() {
+    int[][] sample = { { 1, 2 }, { 4, 5 } };
+    Matrix matrix = Matrix.create(sample);
+    assertEquals(
+      "should give the determinant of given 2X2  matrix",
+      -3,
+      matrix.determinant()
+    );
+  }
+
+  @Test
+  public void shouldCalculateDeterminantOfNxNMatrix() {
+    int[][] sample = {
+      { 4, 3, 2, 2 },
+      { 0, 1, -3, 3 },
+      { 0, -1, 3, 3 },
+      { 0, 3, 1, 1 },
+    };
+    Matrix matrix = Matrix.create(sample);
+    assertEquals(
+      "should give the determinant of given nXn matrix",
+      -240,
+      matrix.determinant()
+    );
+  }
 }
