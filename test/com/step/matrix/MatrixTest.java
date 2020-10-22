@@ -60,7 +60,7 @@ public class MatrixTest {
     int[][] sample1 = { { 1, 2 }, { 4, 5 } };
     Matrix matrix1 = Matrix.create(sample1);
 
-    assertEquals(matrix1.toString(), "1 2 \n4 5 \n");
+    assertEquals("1 2 \n4 5 \n", matrix1.toString());
   }
 
   @Test
@@ -74,7 +74,7 @@ public class MatrixTest {
     int[][] expectedData = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
     Matrix expected = Matrix.create(expectedData);
 
-    assertEquals(matrix1.add(matrix2), expected);
+    assertEquals(expected, matrix1.add(matrix2));
   }
 
   @Test
@@ -99,7 +99,7 @@ public class MatrixTest {
     int[][] expectedData = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
     Matrix expected = Matrix.create(expectedData);
 
-    assertEquals(matrix1.subtract(matrix2), expected);
+    assertEquals(expected, matrix1.subtract(matrix2));
   }
 
   @Test
@@ -124,7 +124,7 @@ public class MatrixTest {
     int[][] expectedData = { { 9, 12 }, { 24, 33 } };
     Matrix expected = Matrix.create(expectedData);
 
-    assertEquals(matrix1.multiply(matrix2), expected);
+    assertEquals(expected, matrix1.multiply(matrix2));
   }
 
   @Test
