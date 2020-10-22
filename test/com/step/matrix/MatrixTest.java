@@ -49,7 +49,7 @@ public class MatrixTest {
   }
 
   @Test
-  public void shouldAddTwoMatrixOfSameDimensions() {
+  public void shouldAddTwoMatricesOfSameDimensions() {
     int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -65,7 +65,7 @@ public class MatrixTest {
   }
 
   @Test
-  public void shouldNodAddTwoMatrixOfDifferentDimensions() {
+  public void shouldNodAddTwoMatricesOfDifferentDimensions() {
     int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -77,7 +77,7 @@ public class MatrixTest {
   }
 
   @Test
-  public void shouldSubtractTwoMatrixOfSameDimensions() {
+  public void shouldSubtractTwoMatricesOfSameDimensions() {
     int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -97,17 +97,48 @@ public class MatrixTest {
   }
 
   @Test
-  public void shouldNotSubtractTwoMatrixOfDifferentDimensions() {
+  public void shouldNotSubtractTwoMatricesOfDifferentDimensions() {
     int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
     Matrix matrix1 = Matrix.create(sample1);
 
     int[][] sample2 = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix3 = Matrix.create(sample2);
+    Matrix matrix2 = Matrix.create(sample2);
 
-    Matrix difference = matrix1.subtract(matrix3);
+    Matrix difference = matrix1.subtract(matrix2);
     assertNull(
       "should not perform subtraction if two matrix have different dimension",
       difference
+    );
+  }
+
+  @Test
+  public void shouldMultiplyTwoMatrices() {
+    int[][] sample1 = { { 1, 2 }, { 4, 5 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    int[][] sample2 = { { 1, 2 }, { 4, 5 } };
+    Matrix matrix2 = Matrix.create(sample2);
+
+    Matrix product = matrix1.multiply(matrix2);
+
+    int[][] expectedData = { { 9, 12 }, { 24, 33 } };
+    Matrix expected = Matrix.create(expectedData);
+
+    assertEquals("should multiply two matrices", product, expected);
+  }
+
+  @Test
+  public void shouldNotMultiplyTwoMatrices() {
+    int[][] sample1 = { { 1, 2 }, { 4, 5 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    int[][] sample2 = { { 1, 2 } };
+    Matrix matrix2 = Matrix.create(sample2);
+
+    Matrix product = matrix1.multiply(matrix2);
+    assertNull(
+      "should not multiply if numbers of rows of first is not equal to the number of columns of the second matrix",
+      product
     );
   }
 }
