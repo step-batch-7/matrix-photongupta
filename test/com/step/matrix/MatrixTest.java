@@ -36,8 +36,6 @@ public class MatrixTest {
 
   @Test
   public void shouldGiveTextualRepresentation() {
-    System.out.println("\nTesting toString");
-
     int[][] sample1 = { { 1, 2 }, { 4, 5 } };
     Matrix matrix1 = Matrix.create(sample1);
 
@@ -48,5 +46,33 @@ public class MatrixTest {
       actual,
       expected
     );
+  }
+
+  @Test
+  public void shouldAddTwoMatrixOfSameDimensions() {
+    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    int[][] sample2 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    Matrix matrix2 = Matrix.create(sample2);
+
+    Matrix sum = matrix1.add(matrix2);
+
+    int[][] expectedData = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
+    Matrix expected = Matrix.create(expectedData);
+
+    assertEquals("should add two matrix of same dimension", sum, expected);
+  }
+
+  @Test
+  public void shouldNodAddTwoMatrixOfDifferentDimensions() {
+    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    int[][] sample2 = { { 1, 2 }, { 4, 5 } };
+    Matrix matrix2 = Matrix.create(sample2);
+
+    Matrix sum = matrix1.add(matrix2);
+    assertNull("should not add if two matrix have different dimension", sum);
   }
 }
