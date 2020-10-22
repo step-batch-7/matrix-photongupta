@@ -7,6 +7,14 @@ import org.junit.Test;
 public class MatrixTest {
 
   @Test
+  public void shouldCreateMatrixInstance() {
+    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    assertTrue("Should give instance of matrix", matrix1 instanceof Matrix);
+  }
+
+  @Test
   public void shouldEquateTwoMatricesHavingSameElements() {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix1 = Matrix.create(sample1);
