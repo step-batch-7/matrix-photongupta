@@ -64,11 +64,10 @@ public class Matrix {
   public Matrix add(Matrix other) {
     if (!this.haveSameDimensions(other)) return null;
     Matrix result = new Matrix(rows, columns);
-    for (int rowId = 0; rowId < this.rows; rowId++) {
-      for (int colId = 0; colId < this.columns; colId++) {
-        int sum =
-          this.getElement(rowId, colId) + other.getElement(rowId, colId);
-        result.setElement(rowId, colId, sum);
+    for (int row = 0; row < this.rows; row++) {
+      for (int col = 0; col < this.columns; col++) {
+        int sum = this.getElement(row, col) + other.getElement(row, col);
+        result.setElement(row, col, sum);
       }
     }
     return result;
@@ -77,11 +76,10 @@ public class Matrix {
   public Matrix subtract(Matrix other) {
     if (!this.haveSameDimensions(other)) return null;
     Matrix result = new Matrix(rows, columns);
-    for (int rowId = 0; rowId < this.rows; rowId++) {
-      for (int colId = 0; colId < this.columns; colId++) {
-        int diff =
-          this.getElement(rowId, colId) - other.getElement(rowId, colId);
-        result.setElement(rowId, colId, diff);
+    for (int row = 0; row < this.rows; row++) {
+      for (int col = 0; col < this.columns; col++) {
+        int diff = this.getElement(row, col) - other.getElement(row, col);
+        result.setElement(row, col, diff);
       }
     }
     return result;
@@ -92,14 +90,13 @@ public class Matrix {
 
     Matrix result = new Matrix(rows, other.columns);
 
-    for (int rowId1 = 0; rowId1 < this.rows; rowId1++) {
-      for (int colId2 = 0; colId2 < other.columns; colId2++) {
+    for (int row1 = 0; row1 < this.rows; row1++) {
+      for (int col2 = 0; col2 < other.columns; col2++) {
         int sum = 0;
-        for (int rowId2 = 0; rowId2 < other.rows; rowId2++) {
-          sum +=
-            this.getElement(rowId1, rowId2) * other.getElement(rowId2, colId2);
+        for (int row2 = 0; row2 < other.rows; row2++) {
+          sum += this.getElement(row1, row2) * other.getElement(row2, col2);
         }
-        result.setElement(rowId1, colId2, sum);
+        result.setElement(row1, col2, sum);
       }
     }
     return result;
