@@ -2,7 +2,6 @@ package com.step.matrix;
 
 import static org.junit.Assert.*;
 
-import com.step.exception.UnequalMatricesDimensionException;
 import org.junit.Test;
 
 public class MatrixTest {
@@ -83,17 +82,7 @@ public class MatrixTest {
     int[][] expectedData = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
     Matrix expected = Matrix.create(expectedData);
 
-    try {
-      Matrix sum = matrix1.add(matrix2);
-      assertEquals(expected, sum);
-    } catch (
-      UnequalMatricesDimensionException unequalMatricesDimensionException
-    ) {
-      assertEquals(
-        unequalMatricesDimensionException.getMessage(),
-        "Matrices of different dimensions"
-      );
-    }
+    assertEquals(expected, matrix1.add(matrix2));
   }
 
   @Test
@@ -104,16 +93,7 @@ public class MatrixTest {
     int[][] sample2 = { { 1, 2 }, { 4, 5 } };
     Matrix matrix2 = Matrix.create(sample2);
 
-    try {
-      Matrix sum = matrix1.add(matrix2);
-    } catch (
-      UnequalMatricesDimensionException unequalMatricesDimensionException
-    ) {
-      assertEquals(
-        unequalMatricesDimensionException.getMessage(),
-        "Matrices of different dimensions"
-      );
-    }
+    assertNull(matrix1.add(matrix2));
   }
 
   @Test

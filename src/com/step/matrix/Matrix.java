@@ -1,7 +1,5 @@
 package com.step.matrix;
 
-import com.step.exception.UnequalMatricesDimensionException;
-
 public class Matrix {
   private int[][] matrix;
   private int rows;
@@ -63,12 +61,8 @@ public class Matrix {
     return this.matrix[row][col] = num;
   }
 
-  public Matrix add(Matrix other) throws UnequalMatricesDimensionException {
-    if (!this.haveSameDimensions(other)) {
-      throw new UnequalMatricesDimensionException(
-        "Matrices of different dimensions"
-      );
-    }
+  public Matrix add(Matrix other) {
+    if (!this.haveSameDimensions(other)) return null;
     Matrix result = new Matrix(rows, columns);
     for (int rowId = 0; rowId < this.rows; rowId++) {
       for (int colId = 0; colId < this.columns; colId++) {
