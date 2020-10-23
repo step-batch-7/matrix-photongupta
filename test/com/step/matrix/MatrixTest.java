@@ -16,6 +16,14 @@ public class MatrixTest {
   }
 
   @Test
+  public void shouldNotCreateMatrixInstanceFromWrongArray() {
+    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8, 7 } };
+    Matrix matrix1 = Matrix.create(sample1);
+
+    assertNull(matrix1);
+  }
+
+  @Test
   public void shouldEquateTwoMatricesHavingSameElements() {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix1 = Matrix.create(sample1);
