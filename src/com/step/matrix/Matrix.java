@@ -22,45 +22,6 @@ public class Matrix {
     return m;
   }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    for (int row = 0; row < rows; row++) {
-      for (int col = 0; col < columns; col++) {
-        sb.append(this.getElement(row, col)).append(" ");
-      }
-      sb.append("\n");
-    }
-    return sb.toString();
-  }
-
-  private boolean haveSameDimensions(Matrix other) {
-    return this.rows == other.rows && this.columns == other.columns;
-  }
-
-  @Override
-  public boolean equals(Object other) {
-    if (this == other) return true;
-    if (!(other instanceof Matrix)) return false;
-
-    Matrix m = (Matrix) other;
-    if (!haveSameDimensions(m)) return false;
-    for (int row = 0; row < this.rows; row++) {
-      for (int col = 0; col < this.columns; col++) {
-        if (this.getElement(row, col) != m.getElement(row, col)) return false;
-      }
-    }
-    return true;
-  }
-
-  private int getElement(int row, int col) {
-    return this.matrix[row][col];
-  }
-
-  private int setElement(int row, int col, int num) {
-    return this.matrix[row][col] = num;
-  }
-
   public Matrix add(Matrix other) {
     if (!this.haveSameDimensions(other)) return null;
 
@@ -103,6 +64,36 @@ public class Matrix {
     return result;
   }
 
+  public int determinant() {
+    if (this.rows == 1) {
+      return this.getElement(0, 0);
+    }
+
+    if (this.rows == 2) {
+      return this.determinantOf2x2Matrix();
+    }
+
+    int determinant = 0;
+    int sign = 1;
+
+    for (int col = 0; col < this.columns; col++) {
+      Matrix subMatrix = createSubMatrix(col);
+      int coefficient = sign * this.getElement(0, col);
+      determinant += coefficient * subMatrix.determinant();
+      sign = -sign;
+    }
+
+    return determinant;
+  }
+
+  private int getElement(int row, int col) {
+    return this.matrix[row][col];
+  }
+
+  private int setElement(int row, int col, int num) {
+    return this.matrix[row][col] = num;
+  }
+
   private Matrix createSubMatrix(int columnNumber) {
     Matrix subMatrix = new Matrix(rows - 1, columns - 1);
     for (int i = 1; i < this.rows; i++) {
@@ -117,28 +108,48 @@ public class Matrix {
     return subMatrix;
   }
 
-  public int determinant() {
-    if (this.rows == 1) {
-      return this.getElement(0, 0);
+  private int determinantOf2x2Matrix() {
+    return (
+      (this.getElement(0, 0) * this.getElement(1, 1)) -
+      (this.getElement(0, 1) * this.getElement(1, 0))
+    );
+  }
+
+  private boolean haveSameDimensions(Matrix other) {
+    return this.rows == other.rows && this.columns == other.columns;
+  }
+
+  private boolean isDeepStrictlyEqual(Matrix other) {
+    for (int row = 0; row < this.rows; row++) {
+      for (int col = 0; col < this.columns; col++) {
+        if (this.getElement(row, col) != m.getElement(row, col)) {
+          return false;
+        }
+      }
     }
+    return true;
+  }
 
-    if (this.rows == 2) {
-      return (
-        (this.getElement(0, 0) * this.getElement(1, 1)) -
-        (this.getElement(0, 1) * this.getElement(1, 0))
-      );
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) return true;
+    if (!(other instanceof Matrix)) return false;
+
+    Matrix m = (Matrix) other;
+    if (!this.haveSameDimensions(m)) return false;
+
+    return this.isDeepStrictlyEqual(other);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < columns; col++) {
+        sb.append(this.getElement(row, col)).append(" ");
+      }
+      sb.append("\n");
     }
-
-    int determinant = 0;
-    int sign = 1;
-
-    for (int col = 0; col < this.columns; col++) {
-      Matrix subMatrix = createSubMatrix(col);
-      int coefficient = sign * this.getElement(0, col);
-      determinant += coefficient * subMatrix.determinant();
-      sign = -sign;
-    }
-
-    return determinant;
+    return sb.toString();
   }
 }
