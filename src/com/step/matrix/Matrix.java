@@ -23,7 +23,7 @@ public class Matrix {
   }
 
   public Matrix add(Matrix other) {
-    if (!this.haveSameDimensions(other)) return null;
+    if (!this.areDimensionsEqual(other)) return null;
 
     Matrix result = new Matrix(rows, columns);
     for (int row = 0; row < this.rows; row++) {
@@ -36,7 +36,7 @@ public class Matrix {
   }
 
   public Matrix subtract(Matrix other) {
-    if (!this.haveSameDimensions(other)) return null;
+    if (!this.areDimensionsEqual(other)) return null;
 
     Matrix result = new Matrix(rows, columns);
     for (int row = 0; row < this.rows; row++) {
@@ -65,12 +65,8 @@ public class Matrix {
   }
 
   public int determinant() {
-    if (this.rows == 1) {
+    if (this.rows == 1 && this.columns == 1) {
       return this.getElement(0, 0);
-    }
-
-    if (this.rows == 2) {
-      return this.determinantOf2x2Matrix();
     }
 
     int determinant = 0;
@@ -108,21 +104,14 @@ public class Matrix {
     return subMatrix;
   }
 
-  private int determinantOf2x2Matrix() {
-    return (
-      (this.getElement(0, 0) * this.getElement(1, 1)) -
-      (this.getElement(0, 1) * this.getElement(1, 0))
-    );
-  }
-
-  private boolean haveSameDimensions(Matrix other) {
+  private boolean areDimensionsEqual(Matrix other) {
     return this.rows == other.rows && this.columns == other.columns;
   }
 
-  private boolean isDeepStrictlyEqual(Matrix other) {
+  private boolean isDeepEqual(Matrix other) {
     for (int row = 0; row < this.rows; row++) {
       for (int col = 0; col < this.columns; col++) {
-        if (this.getElement(row, col) != m.getElement(row, col)) {
+        if (this.getElement(row, col) != other.getElement(row, col)) {
           return false;
         }
       }
@@ -135,10 +124,10 @@ public class Matrix {
     if (this == other) return true;
     if (!(other instanceof Matrix)) return false;
 
-    Matrix m = (Matrix) other;
-    if (!this.haveSameDimensions(m)) return false;
+    Matrix otherMatrix = (Matrix) other;
+    if (!this.areDimensionsEqual(otherMatrix)) return false;
 
-    return this.isDeepStrictlyEqual(other);
+    return this.isDeepEqual(otherMatrix);
   }
 
   @Override
