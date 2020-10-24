@@ -14,6 +14,7 @@ public class Matrix {
   public static Matrix create(int[][] array) {
     int numOfRows = array.length;
     int numOfCols = array[0].length;
+
     Matrix m = new Matrix(numOfRows, numOfCols);
     for (int rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
       if (array[rowIndex].length != numOfCols) return null;
@@ -65,8 +66,15 @@ public class Matrix {
   }
 
   public int determinant() {
-    if (this.rows == 1 && this.columns == 1) {
+    if (this.rows == 1) {
       return this.getElement(0, 0);
+    }
+
+    if (this.rows == 2) {
+      return (
+        (this.getElement(0, 0) * this.getElement(1, 1)) -
+        (this.getElement(0, 1) * this.getElement(1, 0))
+      );
     }
 
     int determinant = 0;
