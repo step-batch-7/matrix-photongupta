@@ -11,7 +11,7 @@ public class MatrixTest {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix1 = Matrix.create(sample1);
 
-    assertTrue(matrix1 instanceof Matrix);
+    assertEquals(true, matrix1 instanceof Matrix);
   }
 
   @Test
@@ -30,7 +30,7 @@ public class MatrixTest {
     int[][] sample2 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix2 = Matrix.create(sample2);
 
-    assertTrue(matrix1.equals(matrix2));
+    assertEquals(matrix1, matrix2);
   }
 
   @Test
@@ -41,7 +41,7 @@ public class MatrixTest {
     int[][] sample2 = { { 4, 2 }, { 9, 5 }, { 7, 8 } };
     Matrix matrix2 = Matrix.create(sample2);
 
-    assertFalse(matrix1.equals(matrix2));
+    assertNotEquals(matrix1, matrix2);
   }
 
   @Test
@@ -52,7 +52,7 @@ public class MatrixTest {
     int[][] sample2 = { { 4 }, { 9 } };
     Matrix matrix2 = Matrix.create(sample2);
 
-    assertFalse(matrix1.equals(matrix2));
+    assertNotEquals(matrix1, matrix2);
   }
 
   @Test
@@ -60,7 +60,7 @@ public class MatrixTest {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
     Matrix matrix1 = Matrix.create(sample1);
 
-    assertFalse(matrix1.equals(new Object()));
+    assertNotEquals(matrix1, new Object());
   }
 
   @Test

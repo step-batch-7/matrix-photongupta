@@ -63,6 +63,7 @@ public class Matrix {
 
   public Matrix add(Matrix other) {
     if (!this.haveSameDimensions(other)) return null;
+
     Matrix result = new Matrix(rows, columns);
     for (int row = 0; row < this.rows; row++) {
       for (int col = 0; col < this.columns; col++) {
@@ -75,6 +76,7 @@ public class Matrix {
 
   public Matrix subtract(Matrix other) {
     if (!this.haveSameDimensions(other)) return null;
+
     Matrix result = new Matrix(rows, columns);
     for (int row = 0; row < this.rows; row++) {
       for (int col = 0; col < this.columns; col++) {
@@ -89,7 +91,6 @@ public class Matrix {
     if (this.columns != other.rows) return null;
 
     Matrix result = new Matrix(rows, other.columns);
-
     for (int row1 = 0; row1 < this.rows; row1++) {
       for (int col2 = 0; col2 < other.columns; col2++) {
         int sum = 0;
@@ -131,7 +132,7 @@ public class Matrix {
     int determinant = 0;
     int sign = 1;
 
-    for (int col = 0; col < columns; col++) {
+    for (int col = 0; col < this.columns; col++) {
       Matrix subMatrix = createSubMatrix(col);
       int coefficient = sign * this.getElement(0, col);
       determinant += coefficient * subMatrix.determinant();
