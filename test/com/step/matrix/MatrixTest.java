@@ -19,7 +19,7 @@ public class MatrixTest {
     int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8, 7 } };
     Matrix matrix1 = Matrix.create(sample1);
 
-    assertNull(matrix1);
+    assertEquals(null, matrix1);
   }
 
   @Test
@@ -93,7 +93,7 @@ public class MatrixTest {
     int[][] sample2 = { { 1, 2 }, { 4, 5 } };
     Matrix matrix2 = Matrix.create(sample2);
 
-    assertNull(matrix1.add(matrix2));
+    assertEquals(null, matrix1.add(matrix2));
   }
 
   @Test
@@ -118,7 +118,7 @@ public class MatrixTest {
     int[][] sample2 = { { 1, 2 }, { 4, 5 } };
     Matrix matrix2 = Matrix.create(sample2);
 
-    assertNull(matrix1.subtract(matrix2));
+    assertEquals(null, matrix1.subtract(matrix2));
   }
 
   @Test
@@ -143,7 +143,7 @@ public class MatrixTest {
     int[][] sample2 = { { 1, 2 } };
     Matrix matrix2 = Matrix.create(sample2);
 
-    assertNull(matrix1.multiply(matrix2));
+    assertEquals(null, matrix1.multiply(matrix2));
   }
 
   @Test
