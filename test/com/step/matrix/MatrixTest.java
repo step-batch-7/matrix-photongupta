@@ -6,162 +6,120 @@ import org.junit.Test;
 
 public class MatrixTest {
 
-  @Test
-  public void shouldCreateMatrixInstance() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
-    Matrix matrix1 = Matrix.create(sample1);
 
-    assertEquals(true, matrix1 instanceof Matrix);
-  }
+    @Test
+    public void shouldCreateMatrixInstance() {
+        Matrix matrix1 = matrix2x2(1, 2, 4, 5);
+        assertEquals(true, matrix1 instanceof Matrix);
+    }
 
-  @Test
-  public void shouldNotCreateMatrixInstanceFromWrongArray() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8, 7 } };
-    Matrix matrix1 = Matrix.create(sample1);
+    @Test
+    public void shouldNotCreateMatrixInstanceFromWrongArray() {
+        Matrix matrix1 = Matrix.create(new int[][]{{1, 2}, {3, 4}, {5}});
+        assertEquals(null, matrix1);
+    }
 
-    assertEquals(null, matrix1);
-  }
+    @Test
+    public void shouldEquateTwoMatricesHavingSameElements() {
+        Matrix matrix1 = matrix2x2(1, 2, 4, 5);
 
-  @Test
-  public void shouldEquateTwoMatricesHavingSameElements() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
-    Matrix matrix1 = Matrix.create(sample1);
+        Matrix matrix2 = matrix2x2(1, 2, 4, 5);
+        assertEquals(matrix1, matrix2);
+    }
 
-    int[][] sample2 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
-    Matrix matrix2 = Matrix.create(sample2);
+    @Test
+    public void shouldNotEquateTwoMatricesHavingDifferentElements() {
+        Matrix matrix1 = matrix2x2(1, 2, 4, 5);
+        Matrix matrix2 = matrix2x2(4, 2, 9, 5);
+        assertNotEquals(matrix1, matrix2);
+    }
 
-    assertEquals(matrix1, matrix2);
-  }
+    @Test
+    public void shouldNotEquateTwoMatricesWithDifferentDimensions() {
+        Matrix matrix1 = matrix3x3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Matrix matrix2 = matrix2x2(4, 1, 9, 4);
+        assertNotEquals(matrix1, matrix2);
+    }
 
-  @Test
-  public void shouldNotEquateTwoMatricesHavingDifferentElements() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
-    Matrix matrix1 = Matrix.create(sample1);
+    @Test
+    public void shouldNotEquateMatrixWithOtherObject() {
+        Matrix matrix1 = matrix2x2(1, 2, 4, 5);
+        assertNotEquals(matrix1, new Object());
+    }
 
-    int[][] sample2 = { { 4, 2 }, { 9, 5 }, { 7, 8 } };
-    Matrix matrix2 = Matrix.create(sample2);
+    @Test
+    public void shouldGiveTextualRepresentation() {
+        Matrix matrix1 = matrix2x2(1, 2, 4, 5);
+        assertEquals("1 2 \n4 5 \n", matrix1.toString());
+    }
 
-    assertNotEquals(matrix1, matrix2);
-  }
+    @Test
+    public void shouldAddTwoMatricesOfSameDimensions() {
+        Matrix matrix1 = matrix3x3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Matrix matrix2 = matrix3x3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Matrix expected = matrix3x3(2, 4, 6, 8, 10, 12, 14, 16, 18);
+        assertEquals(expected, matrix1.add(matrix2));
+    }
 
-  @Test
-  public void shouldNotEquateTwoMatricesWithDifferentDimensions() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
-    Matrix matrix1 = Matrix.create(sample1);
+    @Test
+    public void shouldNotAddTwoMatricesOfDifferentDimensions() {
+        Matrix matrix1 = matrix3x3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Matrix matrix2 = matrix2x2(1, 2, 4, 5);
+        assertEquals(null, matrix1.add(matrix2));
+    }
 
-    int[][] sample2 = { { 4 }, { 9 } };
-    Matrix matrix2 = Matrix.create(sample2);
+    @Test
+    public void shouldSubtractTwoMatricesOfSameDimensions() {
+        Matrix matrix1 = matrix3x3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Matrix matrix2 = matrix3x3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Matrix expected = matrix3x3(0, 0, 0, 0, 0, 0, 0, 0, 0);
+        assertEquals(expected, matrix1.subtract(matrix2));
+    }
 
-    assertNotEquals(matrix1, matrix2);
-  }
+    @Test
+    public void shouldNotSubtractTwoMatricesOfDifferentDimensions() {
+        Matrix matrix1 = matrix3x3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        Matrix matrix2 = matrix2x2(1, 2, 4, 5);
+        assertEquals(null, matrix1.subtract(matrix2));
+    }
 
-  @Test
-  public void shouldNotEquateMatrixWithOtherObject() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 }, { 7, 8 } };
-    Matrix matrix1 = Matrix.create(sample1);
+    @Test
+    public void shouldMultiplyTwoMatrices() {
+        Matrix matrix1 = matrix2x2(1, 2, 4, 5);
+        Matrix matrix2 = matrix2x2(1, 2, 4, 5);
+        Matrix expected = matrix2x2(9, 12, 24, 33);
+        assertEquals(expected, matrix1.multiply(matrix2));
+    }
 
-    assertNotEquals(matrix1, new Object());
-  }
+    @Test
+    public void shouldNotMultiplyTwoMatricesWithWrongDimensions() {
+        Matrix matrix1 = matrix2x2(1, 2, 4, 5);
+        Matrix matrix2 = matrix1x2(1, 2);
+        assertEquals(null, matrix1.multiply(matrix2));
+    }
 
-  @Test
-  public void shouldGiveTextualRepresentation() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix1 = Matrix.create(sample1);
+    @Test
+    public void shouldCalculateDeterminantOf2x2Matrix() {
+        Matrix matrix = matrix2x2(1, 2, 4, 5);
+        assertEquals(-3, matrix.determinant());
+    }
 
-    assertEquals("1 2 \n4 5 \n", matrix1.toString());
-  }
+    @Test
+    public void shouldCalculateDeterminantOfNxNMatrix() {
+        Matrix matrix = matrix3x3(4, 3, 2, 0, 1, -3, 0, -1, 3);
+        assertEquals(0, matrix.determinant());
+    }
 
-  @Test
-  public void shouldAddTwoMatricesOfSameDimensions() {
-    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    Matrix matrix1 = Matrix.create(sample1);
+    private Matrix matrix1x2(int a, int b) {
+        return Matrix.create(new int[][]{{a, b}});
+    }
 
-    int[][] sample2 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    Matrix matrix2 = Matrix.create(sample2);
+    private Matrix matrix2x2(int a, int b, int c, int d) {
+        return Matrix.create(new int[][]{{a, b}, {c, d}});
+    }
 
-    int[][] expectedData = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
-    Matrix expected = Matrix.create(expectedData);
+    private Matrix matrix3x3(int a, int b, int c, int d, int e, int f, int g, int h, int i) {
+        return Matrix.create(new int[][]{{a, b, c}, {d, e, f}, {g, h, i}});
+    }
 
-    assertEquals(expected, matrix1.add(matrix2));
-  }
-
-  @Test
-  public void shouldNodAddTwoMatricesOfDifferentDimensions() {
-    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    Matrix matrix1 = Matrix.create(sample1);
-
-    int[][] sample2 = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix2 = Matrix.create(sample2);
-
-    assertEquals(null, matrix1.add(matrix2));
-  }
-
-  @Test
-  public void shouldSubtractTwoMatricesOfSameDimensions() {
-    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    Matrix matrix1 = Matrix.create(sample1);
-
-    int[][] sample2 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    Matrix matrix2 = Matrix.create(sample2);
-
-    int[][] expectedData = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-    Matrix expected = Matrix.create(expectedData);
-
-    assertEquals(expected, matrix1.subtract(matrix2));
-  }
-
-  @Test
-  public void shouldNotSubtractTwoMatricesOfDifferentDimensions() {
-    int[][] sample1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    Matrix matrix1 = Matrix.create(sample1);
-
-    int[][] sample2 = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix2 = Matrix.create(sample2);
-
-    assertEquals(null, matrix1.subtract(matrix2));
-  }
-
-  @Test
-  public void shouldMultiplyTwoMatrices() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix1 = Matrix.create(sample1);
-
-    int[][] sample2 = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix2 = Matrix.create(sample2);
-
-    int[][] expectedData = { { 9, 12 }, { 24, 33 } };
-    Matrix expected = Matrix.create(expectedData);
-
-    assertEquals(expected, matrix1.multiply(matrix2));
-  }
-
-  @Test
-  public void shouldNotMultiplyTwoMatricesWithWrongDimensions() {
-    int[][] sample1 = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix1 = Matrix.create(sample1);
-
-    int[][] sample2 = { { 1, 2 } };
-    Matrix matrix2 = Matrix.create(sample2);
-
-    assertEquals(null, matrix1.multiply(matrix2));
-  }
-
-  @Test
-  public void shouldCalculateDeterminantOf2x2Matrix() {
-    int[][] sample = { { 1, 2 }, { 4, 5 } };
-    Matrix matrix = Matrix.create(sample);
-    assertEquals(-3, matrix.determinant());
-  }
-
-  @Test
-  public void shouldCalculateDeterminantOfNxNMatrix() {
-    int[][] sample = {
-      { 4, 3, 2, 2 },
-      { 0, 1, -3, 3 },
-      { 0, -1, 3, 3 },
-      { 0, 3, 1, 1 },
-    };
-    Matrix matrix = Matrix.create(sample);
-    assertEquals(-240, matrix.determinant());
-  }
 }
